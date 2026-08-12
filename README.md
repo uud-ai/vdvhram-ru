@@ -1,3 +1,7 @@
+# vdvhram.ru
+
+Repository: [github.com/uud-ai/vdvhram-ru](https://github.com/uud-ai/vdvhram-ru)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
