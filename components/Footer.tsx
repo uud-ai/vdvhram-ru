@@ -5,6 +5,7 @@ const quickLinks = [
   { href: "/#locations", label: "Наши храмы" },
   { href: "/#schedule", label: "Расписание богослужений" },
   { href: "/#prayer-request", label: "Подать записку онлайн" },
+  { href: "/clergy", label: "Духовенство" },
   { href: "/#memory-book", label: "Книга Памяти" },
 ];
 

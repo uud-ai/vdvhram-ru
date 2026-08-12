@@ -19,6 +19,7 @@ const figures = [
     name: "Протоиерей Михаил Васильев",
     title: "Герой России, военный священник ВДВ",
     bio: "Более 20 лет окормлял десантников в горячих точках, погиб при исполнении пастырского долга. Посмертно удостоен звания Героя Российской Федерации.",
+    href: "/clergy#clergy-vasiliev",
   },
   {
     id: "sliunin",
@@ -97,6 +98,14 @@ export default function MemoryBookSection() {
                 </div>
               </div>
               <p className="mt-4 text-sm leading-relaxed text-white/75">{figure.bio}</p>
+              {figure.href && (
+                <a
+                  href={figure.href}
+                  className="mt-4 inline-block text-sm font-semibold text-gold transition-colors hover:text-gold-light"
+                >
+                  Подробное жизнеописание →
+                </a>
+              )}
             </motion.article>
           ))}
         </div>
