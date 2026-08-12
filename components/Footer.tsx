@@ -7,6 +7,7 @@ const quickLinks = [
   { href: "/#prayer-request", label: "Подать записку онлайн" },
   { href: "/clergy", label: "Духовенство" },
   { href: "/#memory-book", label: "Книга Памяти" },
+  { href: "/svod", label: "Центр «Свод»" },
 ];
 
 export default function Footer() {
