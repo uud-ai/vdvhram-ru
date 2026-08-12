@@ -31,12 +31,11 @@ export default function Footer() {
             десантников, их семей и всех прихожан.
           </p>
           <a
-            href="#"
-            aria-label="Telegram-канал прихода"
+            href="tel:+79637700908"
             className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-gold transition-colors hover:text-gold-light"
           >
             <Send size={16} aria-hidden />
-            Telegram-канал прихода
+            Канал прихода в МАКС — +7 (963) 770-09-08
           </a>
         </div>
 
