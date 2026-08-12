@@ -6,23 +6,25 @@ import { Menu, Phone, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "#locations", label: "Храмы" },
-  { href: "#schedule", label: "Расписание" },
-  { href: "#prayer-request", label: "Записки" },
-  { href: "#memory-book", label: "Книга Памяти" },
-  { href: "#contacts", label: "Контакты" },
+  { href: "/#locations", label: "Храмы" },
+  { href: "/#schedule", label: "Расписание" },
+  { href: "/#prayer-request", label: "Записки" },
+  { href: "/#memory-book", label: "Книга Памяти" },
+  { href: "/#contacts", label: "Контакты" },
 ];
 
-export default function Header() {
+export default function Header({ transparent = true }: { transparent?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const solid = !transparent || scrolled;
 
   useEffect(() => {
+    if (!transparent) return;
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [transparent]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -35,17 +37,17 @@ export default function Header() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled
+        solid
           ? "bg-background/95 shadow-soft backdrop-blur-sm border-b border-border"
           : "bg-transparent"
       )}
     >
       <div className="container-site flex h-16 items-center justify-between sm:h-20">
         <a
-          href="#top"
+          href="/"
           className={cn(
             "font-display text-lg font-semibold leading-tight transition-colors sm:text-xl",
-            scrolled ? "text-primary" : "text-white drop-shadow-sm"
+            solid ? "text-primary" : "text-white drop-shadow-sm"
           )}
         >
           Храм Благовещения
@@ -64,7 +66,7 @@ export default function Header() {
               href={link.href}
               className={cn(
                 "text-sm font-medium transition-colors hover:text-gold",
-                scrolled ? "text-charcoal" : "text-white"
+                solid ? "text-charcoal" : "text-white"
               )}
             >
               {link.label}
@@ -77,14 +79,14 @@ export default function Header() {
             href="tel:+74952685289"
             className={cn(
               "flex items-center gap-2 text-sm font-medium transition-colors hover:text-gold",
-              scrolled ? "text-charcoal" : "text-white"
+              solid ? "text-charcoal" : "text-white"
             )}
           >
             <Phone size={16} aria-hidden />
             +7 (495) 268-52-89
           </a>
           <a
-            href="#prayer-request"
+            href="/#prayer-request"
             className="rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-primary shadow-gold transition-transform hover:scale-105"
           >
             Подать записку
@@ -95,7 +97,7 @@ export default function Header() {
           type="button"
           className={cn(
             "flex h-10 w-10 items-center justify-center rounded-full transition-colors lg:hidden",
-            scrolled ? "text-primary" : "text-white"
+            solid ? "text-primary" : "text-white"
           )}
           aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
           aria-expanded={menuOpen}
@@ -134,7 +136,7 @@ export default function Header() {
                 +7 (495) 268-52-89
               </a>
               <a
-                href="#prayer-request"
+                href="/#prayer-request"
                 onClick={() => setMenuOpen(false)}
                 className="mt-2 rounded-full bg-gold px-5 py-3 text-center text-sm font-semibold text-primary shadow-gold"
               >

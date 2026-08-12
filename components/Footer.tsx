@@ -2,10 +2,10 @@ import { Clock, Mail, MapPin, Phone, Send } from "lucide-react";
 import { locations } from "@/data/locations";
 
 const quickLinks = [
-  { href: "#locations", label: "Наши храмы" },
-  { href: "#schedule", label: "Расписание богослужений" },
-  { href: "#prayer-request", label: "Подать записку онлайн" },
-  { href: "#memory-book", label: "Книга Памяти" },
+  { href: "/#locations", label: "Наши храмы" },
+  { href: "/#schedule", label: "Расписание богослужений" },
+  { href: "/#prayer-request", label: "Подать записку онлайн" },
+  { href: "/#memory-book", label: "Книга Памяти" },
 ];
 
 export default function Footer() {
@@ -90,10 +90,15 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="container-site flex flex-col items-center justify-between gap-3 py-6 text-xs text-white/60 sm:flex-row">
           <p>© {year} Приход храма Благовещения Пресвятой Богородицы в Сокольниках</p>
-          <a href="mailto:info@vdvhram.ru" className="flex items-center gap-2 hover:text-gold">
-            <Mail size={14} aria-hidden />
-            info@vdvhram.ru
-          </a>
+          <div className="flex items-center gap-5">
+            <a href="/privacy" className="hover:text-gold">
+              Политика обработки персональных данных
+            </a>
+            <a href="mailto:hramvdv@yandex.ru" className="flex items-center gap-2 hover:text-gold">
+              <Mail size={14} aria-hidden />
+              hramvdv@yandex.ru
+            </a>
+          </div>
         </div>
       </div>
     </footer>
