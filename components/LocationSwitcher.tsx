@@ -16,7 +16,7 @@ export default function LocationSwitcher() {
     <section
       id="locations"
       aria-labelledby="locations-heading"
-      className="bg-background py-20 sm:py-28"
+      className="bg-gradient-to-b from-sky-light/50 via-background to-background py-20 sm:py-28"
     >
       <div className="container-site">
         <motion.div

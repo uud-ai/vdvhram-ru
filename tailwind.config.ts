@@ -13,26 +13,36 @@ const config: Config = {
         background: "var(--color-background)",
         foreground: "var(--color-foreground)",
         primary: {
-          DEFAULT: "#1C3D5A",
-          light: "#2A5680",
-          dark: "#122A3E",
-          foreground: "#FDFBF7",
+          DEFAULT: "#3E6280",
+          light: "#7096B0",
+          dark: "#2C4A62",
+          foreground: "#FBF7EF",
         },
         gold: {
-          DEFAULT: "#C5A059",
-          light: "#D6B876",
-          dark: "#A8853F",
-          foreground: "#1C3D5A",
+          DEFAULT: "#C9A76B",
+          light: "#E0C68F",
+          dark: "#A9853F",
+          foreground: "#2C4A62",
         },
-        charcoal: "#222222",
-        border: "#E8E2D5",
+        sky: {
+          DEFAULT: "#B8CFDE",
+          light: "#D6E3EB",
+          dark: "#8FAEC2",
+        },
+        terracotta: {
+          DEFAULT: "#BD7A5C",
+          light: "#DCA98C",
+          dark: "#8F5640",
+        },
+        charcoal: "#2E2B26",
+        border: "#E7E0CE",
       },
       fontFamily: {
         display: ["var(--font-display)", "serif"],
         sans: ["var(--font-sans)", "sans-serif"],
       },
       backgroundImage: {
-        "gold-gradient": "linear-gradient(135deg, #D6B876 0%, #C5A059 50%, #A8853F 100%)",
+        "gold-gradient": "linear-gradient(135deg, #E0C68F 0%, #C9A76B 50%, #A9853F 100%)",
       },
       keyframes: {
         "fade-up": {
@@ -44,8 +54,8 @@ const config: Config = {
         "fade-up": "fade-up 0.6s ease-out forwards",
       },
       boxShadow: {
-        soft: "0 4px 24px -4px rgba(28, 61, 90, 0.12)",
-        gold: "0 4px 20px -2px rgba(197, 160, 89, 0.35)",
+        soft: "0 4px 24px -4px rgba(44, 74, 98, 0.12)",
+        gold: "0 4px 20px -2px rgba(201, 167, 107, 0.4)",
       },
     },
   },
