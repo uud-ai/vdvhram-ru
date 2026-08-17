@@ -9,6 +9,7 @@ const navLinks = [
   { href: "/#locations", label: "Храмы" },
   { href: "/#schedule", label: "Расписание" },
   { href: "/#prayer-request", label: "Записки" },
+  { href: "/news", label: "События" },
   { href: "/clergy", label: "Духовенство" },
   { href: "/#contacts", label: "Контакты" },
 ];
