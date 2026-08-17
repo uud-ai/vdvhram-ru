@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getNewsBySlug } from "@/lib/news-store";
+import { stripHtml } from "@/lib/html";
+import { sanitizeNewsContent } from "@/lib/sanitize-html";
 
 export const dynamic = "force-dynamic";
 
@@ -13,7 +15,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const item = await getNewsBySlug(decodeURIComponent(params.slug));
   if (!item) return {};
-  const description = item.content.replace(/\s+/g, " ").slice(0, 160);
+  const description = stripHtml(item.content).slice(0, 160);
   return {
     title: item.title,
     description,
@@ -34,7 +36,6 @@ export default async function NewsDetailPage({
   const item = await getNewsBySlug(decodeURIComponent(params.slug));
   if (!item) notFound();
 
-  const paragraphs = item.content.split(/\n+/).filter(Boolean);
   const date = new Date(item.createdAt).toLocaleDateString("ru-RU", {
     day: "numeric",
     month: "long",
@@ -60,13 +61,10 @@ export default async function NewsDetailPage({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={item.imageUrl} alt={item.title} className="w-full object-cover" />
           </div>
-          <div className="mt-8 max-w-none">
-            {paragraphs.map((p, i) => (
-              <p key={i} className="mb-4 text-base leading-relaxed text-charcoal/80">
-                {p}
-              </p>
-            ))}
-          </div>
+          <div
+            className="mt-8 max-w-none text-base leading-relaxed text-charcoal/80 [&_a]:text-primary [&_a]:underline [&_a:hover]:text-gold-dark [&_b]:font-semibold [&_strong]:font-semibold [&_p]:mb-4 [&_p:last-child]:mb-0"
+            dangerouslySetInnerHTML={{ __html: sanitizeNewsContent(item.content) }}
+          />
         </article>
       </main>
       <Footer />

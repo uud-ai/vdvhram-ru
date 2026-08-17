@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import type { NewsItem } from "@/lib/types";
+import { stripHtml } from "@/lib/html";
+import RichTextEditor from "@/components/RichTextEditor";
 
 const emptyForm = { title: "", content: "" };
 
@@ -13,6 +15,7 @@ export default function AdminNewsManager() {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [formKey, setFormKey] = useState(0);
   const [form, setForm] = useState(emptyForm);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [existingImageUrl, setExistingImageUrl] = useState<string | null>(null);
@@ -36,6 +39,7 @@ export default function AdminNewsManager() {
     setForm(emptyForm);
     setImageFile(null);
     setExistingImageUrl(null);
+    setFormKey((k) => k + 1);
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
@@ -44,6 +48,7 @@ export default function AdminNewsManager() {
     setForm({ title: item.title, content: item.content });
     setImageFile(null);
     setExistingImageUrl(item.imageUrl);
+    setFormKey((k) => k + 1);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -51,7 +56,7 @@ export default function AdminNewsManager() {
     e.preventDefault();
     setError(null);
 
-    if (!form.title.trim() || !form.content.trim()) {
+    if (!form.title.trim() || !stripHtml(form.content)) {
       setError("Заполните заголовок и текст");
       return;
     }
@@ -146,16 +151,16 @@ export default function AdminNewsManager() {
             />
           </label>
 
-          <label className="mt-4 block text-sm font-medium text-charcoal">
-            Текст
-            <textarea
-              value={form.content}
-              onChange={(e) => setForm((f) => ({ ...f, content: e.target.value }))}
-              rows={8}
-              className="mt-1.5 w-full resize-y rounded-lg border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
-              required
-            />
-          </label>
+          <div className="mt-4">
+            <label className="block text-sm font-medium text-charcoal">Текст</label>
+            <div className="mt-1.5">
+              <RichTextEditor
+                key={formKey}
+                initialHtml={form.content}
+                onChange={(html) => setForm((f) => ({ ...f, content: html }))}
+              />
+            </div>
+          </div>
 
           <label className="mt-4 block text-sm font-medium text-charcoal">
             Фото
@@ -230,7 +235,9 @@ export default function AdminNewsManager() {
                     <h3 className="font-display text-base font-semibold text-primary">
                       {item.title}
                     </h3>
-                    <p className="mt-1 line-clamp-2 text-sm text-charcoal/70">{item.content}</p>
+                    <p className="mt-1 line-clamp-2 text-sm text-charcoal/70">
+                      {stripHtml(item.content)}
+                    </p>
                     <div className="mt-2 flex gap-4">
                       <button
                         type="button"

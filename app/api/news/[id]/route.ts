@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { ADMIN_SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
 import { deleteNews, updateNews } from "@/lib/news-store";
+import { sanitizeNewsContent } from "@/lib/sanitize-html";
+import { stripHtml } from "@/lib/html";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +20,10 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   const body = await req.json().catch(() => ({}));
   const update: Partial<{ title: string; content: string; imageUrl: string }> = {};
   if (typeof body.title === "string" && body.title.trim()) update.title = body.title.trim();
-  if (typeof body.content === "string" && body.content.trim()) update.content = body.content.trim();
+  if (typeof body.content === "string" && body.content.trim()) {
+    const sanitized = sanitizeNewsContent(body.content);
+    if (stripHtml(sanitized)) update.content = sanitized;
+  }
   if (typeof body.imageUrl === "string" && body.imageUrl.trim()) update.imageUrl = body.imageUrl.trim();
 
   const item = await updateNews(params.id, update);

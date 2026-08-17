@@ -1,4 +1,5 @@
 import type { NewsItem } from "@/lib/types";
+import { stripHtml } from "@/lib/html";
 
 export default function NewsCard({ item }: { item: NewsItem }) {
   const date = new Date(item.createdAt).toLocaleDateString("ru-RU", {
@@ -6,7 +7,7 @@ export default function NewsCard({ item }: { item: NewsItem }) {
     month: "long",
     year: "numeric",
   });
-  const plain = item.content.replace(/\s+/g, " ").trim();
+  const plain = stripHtml(item.content);
   const excerpt = plain.length > 140 ? `${plain.slice(0, 140)}…` : plain;
 
   return (

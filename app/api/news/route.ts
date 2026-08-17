@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { ADMIN_SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
 import { createNews, getAllNews } from "@/lib/news-store";
+import { sanitizeNewsContent } from "@/lib/sanitize-html";
+import { stripHtml } from "@/lib/html";
 
 export const dynamic = "force-dynamic";
 
@@ -18,10 +20,10 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json().catch(() => ({}));
   const title = typeof body.title === "string" ? body.title.trim() : "";
-  const content = typeof body.content === "string" ? body.content.trim() : "";
+  const content = sanitizeNewsContent(typeof body.content === "string" ? body.content : "");
   const imageUrl = typeof body.imageUrl === "string" ? body.imageUrl.trim() : "";
 
-  if (!title || !content || !imageUrl) {
+  if (!title || !stripHtml(content) || !imageUrl) {
     return NextResponse.json(
       { error: "Заполните заголовок, текст и фото" },
       { status: 400 }
